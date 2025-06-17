@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>豆包 - 你的智能AI助手</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3498db',
+            secondary: '#2980b9',
+            accent: '#e74c3c',
+            dark: '#2c3e50',
+            light: '#ecf0f1',
+            muted: '#95a5a6'
+          },
+          fontFamily: {
+            inter: ['Inter', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .card-hover {
+        @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+      }
+      .btn-primary {
+        @apply bg-primary hover:bg-secondary text-white font-medium py-3 px-6 rounded-lg transition-colors duration-300 shadow-md hover:shadow-lg;
+      }
+      .btn-secondary {
+        @apply bg-white hover:bg-gray-100 text-primary border border-primary font-medium py-3 px-6 rounded-lg transition-colors duration-300;
+      }
+      .section-padding {
+        @apply py-16 md:py-24;
+      }
+      .bg-gradient-primary {
+        @apply bg-gradient-to-r from-primary to-secondary;
+      }
+    }
+  </style>
+</head>
+
+<body class="font-inter text-dark bg-light">
+  <!-- 导航栏 -->
+  <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16 md:h-20">
+        <!-- 品牌Logo -->
+        <div class="flex items-center">
+          <a href="#" class="flex items-center space-x-2">
+            <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <i class="fa fa-brain text-white text-2xl"></i>
+            </div>
+            <span class="text-xl md:text-2xl font-bold text-primary">豆包</span>
+          </a>
+        </div>
+        
+        <!-- 桌面导航 -->
+        <nav class="hidden md:flex items-center space-x-8">
+          <a href="#features" class="text-dark hover:text-primary font-medium transition-colors">功能</a>
+          <a href="#use-cases" class="text-dark hover:text-primary font-medium transition-colors">使用场景</a>
+          <a href="#testimonials" class="text-dark hover:text-primary font-medium transition-colors">用户评价</a>
+          <a href="#download" class="text-dark hover:text-primary font-medium transition-colors">下载</a>
+          <a href="#pricing" class="text-dark hover:text-primary font-medium transition-colors">价格</a>
+        </nav>
+        
+        <!-- 登录/注册按钮 -->
+        <div class="hidden md:flex items-center space-x-4">
+          <a href="#" class="text-dark hover:text-primary font-medium transition-colors">登录</a>
+          <a href="#" class="btn-primary">免费注册</a>
+        </div>
+        
+        <!-- 移动端菜单按钮 -->
+        <div class="md:hidden flex items-center">
+          <button id="menu-toggle" class="text-dark focus:outline-none">
+            <i class="fa fa-bars text-2xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 移动端菜单 -->
+    <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+      <div class="container mx-auto px-4 py-3 space-y-3">
+        <a href="#features" class="block text-dark hover:text-primary font-medium py-2 transition-colors">功能</a>
+        <a href="#use-cases" class="block text-dark hover:text-primary font-medium py-2 transition-colors">使用场景</a>
+        <a href="#testimonials" class="block text-dark hover:text-primary font-medium py-2 transition-colors">用户评价</a>
+        <a href="#download" class="block text-dark hover:text-primary font-medium py-2 transition-colors">下载</a>
+        <a href="#pricing" class="block text-dark hover:text-primary font-medium py-2 transition-colors">价格</a>
+        <div class="flex space-x-3 pt-2 border-t">
+          <a href="#" class="flex-1 text-center text-dark hover:text-primary font-medium py-2 transition-colors">登录</a>
+          <a href="#" class="flex-1 text-center btn-primary">免费注册</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 英雄区 -->
+  <section class="pt-32 pb-20 md:pt-40 md:pb-32 bg-gradient-to-br from-white to-blue-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row items-center">
+        <div class="lg:w-1/2 mb-10 lg:mb-0">
+          <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight text-shadow mb-6">
+            智能助手<span class="text-primary">豆包</span>，<br>让生活更简单
+          </h1>
+          <p class="text-lg md:text-xl text-muted mb-8 max-w-xl">
+            豆包是一款基于先进AI技术的智能助手，为你提供高效的信息查询、内容创作、生活助手等服务，让智能融入每一个日常。
+          </p>
+          <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <a href="#download" class="btn-primary text-center">
+              <i class="fa fa-download mr-2"></i>立即体验
+            </a>
+            <a href="#features" class="btn-secondary text-center">
+              <i class="fa fa-play-circle mr-2"></i>了解更多
+            </a>
+          </div>
+          <div class="mt-8 flex items-center space-x-6">
+            <div class="flex -space-x-2">
+              <img src="https://picsum.photos/id/1001/40/40" alt="用户头像" class="w-10 h-10 rounded-full border-2 border-white">
+              <img src="https://picsum.photos/id/1002/40/40" alt="用户头像" class="w-10 h-10 rounded-full border-2 border-white">
+              <img src="https://picsum.photos/id/1003/40/40" alt="用户头像" class="w-10 h-10 rounded-full border-2 border-white">
+              <img src="https://picsum.photos/id/1004/40/40" alt="用户头像" class="w-10 h-10 rounded-full border-2 border-white">
+            </div>
+            <div>
+              <div class="text-sm text-muted">已有 <span class="text-primary font-bold">100万+</span> 用户选择</div>
+              <div class="flex text-yellow-400">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+                <span class="text-muted ml-2">4.8/5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lg:w-1/2 relative">
+          <div class="relative z-10 rounded-3xl overflow-hidden shadow-2xl">
+            <img src="https://picsum.photos/id/180/800/600" alt="豆包AI助手界面" class="w-full h-auto">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <div class="flex items-center mb-2">
+                <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center mr-3">
+                  <i class="fa fa-brain"></i>
+                </div>
+                <h3 class="font-semibold text-lg">豆包</h3>
+              </div>
+              <p class="text-sm md:text-base">你今天想了解什么？我可以帮你查询信息、创作内容，或者规划日程~</p>
+            </div>
+          </div>
+          <!-- 装饰元素 -->
+          <div class="absolute -top-6 -right-6 w-32 h-32 bg-accent/20 rounded-full blur-3xl"></div>
+          <div class="absolute -bottom-8 -left-8 w-40 h-40 bg-primary/20 rounded-full blur-3xl"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 数据统计 -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="p-6">
+          <div class="text-4xl md:text-5xl font-bold text-primary mb-2" id="counter-users">0</div>
+          <div class="text-muted">活跃用户</div>
+        </div>
+        <div class="p-6">
+          <div class="text-4xl md:text-5xl font-bold text-primary mb-2" id="counter-requests">0</div>
+          <div class="text-muted">每日请求</div>
+        </div>
+        <div class="p-6">
+          <div class="text-4xl md:text-5xl font-bold text-primary mb-2" id="counter-languages">0</div>
+          <div class="text-muted">支持语言</div>
+        </div>
+        <div class="p-6">
+          <div class="text-4xl md:text-5xl font-bold text-primary mb-2" id="counter-categories">0</div>
+          <div class="text-muted">功能类别</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 核心功能 -->
+  <section id="features" class="section-padding bg-gray-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold mb-4">强大功能，满足你的多种需求</h2>
+        <p class="text-lg text-muted">豆包集成多项AI能力，从日常助手到专业工具，全方位提升你的效率</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- 功能卡片1 -->
+        <div class="bg-white rounded-2xl p-8 shadow-md card-hover">
+          <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+            <i class="fa fa-comments text-2xl text-primary"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">智能对话</h3>
+          <p class="text-muted mb-5">自然语言交互，理解你的需求，提供贴心回答，支持多轮对话和上下文理解。</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start">
+              <i class="fa fa-check text-primary mt-1 mr-2"></i>
+              <span>上下文持续对话</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-check text-primary mt-1 mr-2"></i>
+              <span>情感识别与回应</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-check text-primary mt-1 mr-2"></i>
+              <span>多场景对话模式</span>
+            </li>
+          </ul>
+          <a href="#" class="text-primary font-medium flex items-center">
+            了解更多 <i class="fa fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+        
+        <!-- 功能卡片2 -->
+        <div class="bg-white rounded-2xl p-8 shadow-md card-hover">
+          <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+            <i class="fa fa-pencil-square-o text-2xl text-primary"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">内容创作</h3>
+          <p class="text-muted mb-5">一键生成文章、诗歌、文案、代码等内容，支持多种风格和场景定制。</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start">
+              <i class="fa fa-check text-primary mt-1 mr-2"></i>
+              <span>智能文案生成</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-check text-primary mt-1 mr-2"></i>
+              <span>代码辅助编写</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-check text-primary mt-1 mr-2"></i>
+              <span>创意内容生成</span>
+            </li>
+          </ul>
+          <a href="#" class="text-primary font-medium flex items-center">
+            了解更多 <i class="fa fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+        
+        <!-- 功能卡片3 -->
+        <div class="bg-white rounded-2xl p-8 shadow-md card-hover">
+          <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+            <i class="fa fa-search text-2xl text-primary"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">信息查询</h3>
+          <p class="text-muted mb-5">实时获取全球信息，解答各类知识疑问，支持数据查询和趋势分析。</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start">
+              <i class="fa fa-check text-primary mt-1 mr-2"></i>
+              <span>实时资讯检索</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-check text-primary mt-1 mr-2"></i>
+              <span>知识图谱解答</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-check text-primary mt-1 mr-2"></i>
+              <span>数据趋势分析</span>
+            </li>
+          </ul>
+          <a href="#" class="text-primary font-medium flex items-center">
+            了解更多 <i class="fa fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+        
+        <!-- 功能卡片4 -->
+        <div class="bg-white rounded-2xl p-8 shadow-md card-hover">
+          <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+            <i class="fa fa-calendar-check-o text-2xl text-primary"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">日程管理</h3>
+          <p class="text-muted mb-5">智能规划日程，设置提醒，管理任务，帮助你高效安排工作与生活。</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start">
+              <i class="fa fa-check text-primary mt-1 mr-2"></i>
+              <span>智能日程建议</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-check text-primary mt-1 mr-2"></i>
+              <span>多平台同步</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-check text-primary mt-1 mr-2"></i>
+              <span>任务优先级管理</span>
+            </li>
+          </ul>
+          <a href="#" class="text-primary font-medium flex items-center">
+            了解更多 <i class="fa fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+        
+        <!-- 功能卡片5 -->
+        <div class="bg-white rounded-2xl p-8 shadow-md card-hover">
+          <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+            <i class="fa fa-language text-2xl text-primary"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">多语言翻译</h3>
+          <p class="text-muted mb-5">支持全球200+语言互译，实时语音翻译，文档翻译，让沟通无国界。</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start">
+              <i class="fa fa-check text-primary mt-1 mr-2"></i>
+              <span>实时语音翻译</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-check text-primary mt-1 mr-2"></i>
+              <span>文档批量翻译</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-check text-primary mt-1 mr-2"></i>
+              <span>专业领域术语</span>
+            </li>
+          </ul>
+          <a href="#" class="text-primary font-medium flex items-center">
+            了解更多 <i class="fa fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+        
+        <!-- 功能卡片6 -->
+        <div class="bg-white rounded-2xl p-8 shadow-md card-hover">
+          <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+            <i class="fa fa-line-chart text-2xl text-primary"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">数据分析</h3>
+          <p class="text-muted mb-5">快速分析数据，生成可视化报告，支持数据清洗、建模和预测分析。</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start">
+              <i class="fa fa-check text-primary mt-1 mr-2"></i>
+              <span>数据清洗与处理</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-check text-primary mt-1 mr-2"></i>
+              <span>可视化报告生成</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa fa-check text-primary mt-1 mr-2"></i>
+              <span>趋势预测分析</span>
+            </li>
+          </ul>
+          <a href="#" class="text-primary font-medium flex items-center">
+            了解更多 <i class="fa fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 使用场景 -->
+  <section id="use-cases" class="section-padding bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold mb-4">多场景应用，赋能你的生活与工作</h2>
+        <p class="text-lg text-muted">无论你是学生、职场人士还是创业者，豆包都能在不同场景中为你提供帮助</p>
+      </div>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- 场景1 -->
+        <div class="order-2 lg:order-1">
+          <div class="relative">
+            <div class="relative z-10 rounded-2xl overflow-hidden shadow-xl">
+              <img src="https://picsum.photos/id/237/800/600" alt="学习场景" class="w-full h-auto">
+            </div>
+            <div class="absolute -top-6 -left-6 w-32 h-32 bg-accent/20 rounded-full blur-3xl z-0"></div>
+            <div class="absolute -bottom-8 -right-8 w-40 h-40 bg-primary/20 rounded-full blur-3xl z-0"></div>
+          </div>
+        </div>
+        <div class="order-1 lg:order-2">
+          <h3 class="text-2xl md:text-3xl font-bold mb-6">学习辅助，知识触手可及</h3>
+          <p class="text-muted mb-6">豆包作为你的智能学习伙伴，支持知识点解析、作业帮助、语言学习等功能，让学习更高效。</p>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-start">
+              <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                <i class="fa fa-graduation-cap text-primary"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">知识点解析</h4>
+                <p class="text-muted">快速理解复杂概念，提供详细解析和案例说明，帮助你攻克学习难点。</p>
+              </div>
+            </li>
+            <li class="flex items-start">
+              <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                <i class="fa fa-book text-primary"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">作业辅助</h4>
+                <p class="text-muted">提供作业思路和参考，检查语法错误，帮助你提升作业质量和完成效率。</p>
+              </div>
+            </li>
+            <li class="flex items-start">
+              <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                <i class="fa fa-language text-primary"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">语言学习</h4>
+                <p class="text-muted">实时翻译、语法纠正、口语练习，帮助你提升多语言能力，突破语言障碍。</p>
+              </div>
+            </li>
+          </ul>
+          <a href="#" class="btn-primary inline-flex items-center">
+            了解学习场景 <i class="fa fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+        
+        <!-- 场景2 -->
+        <div class="order-1 lg:order-1 mt-16 lg:mt-0">
+          <h3 class="text-2xl md:text-3xl font-bold mb-6">工作提效，释放创造力</h3>
+          <p class="text-muted mb-6">豆包成为你的职场助手，支持文档撰写、数据分析、会议纪要等功能，让工作更轻松高效。</p>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-start">
+              <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                <i class="fa fa-file-text-o text-primary"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">文档撰写</h4>
+                <p class="text-muted">快速生成各类办公文档，包括报告、邮件、方案等，提升文档撰写效率。</p>
+              </div>
+            </li>
+            <li class="flex items-start">
+              <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                <i class="fa fa-bar-chart text-primary"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">数据分析</h4>
+                <p class="text-muted">快速处理和分析业务数据，生成可视化报告，为决策提供数据支持。</p>
+              </div>
+            </li>
+            <li class="flex items-start">
+              <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                <i class="fa fa-microphone text-primary"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">会议纪要</h4>
+                <p class="text-muted">实时记录会议内容，生成结构化会议纪要，提取关键行动项，避免信息遗漏。</p>
+              </div>
+            </li>
+          </ul>
+          <a href="#" class="btn-primary inline-flex items-center">
+            了解工作场景 <i class="fa fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+        <div class="order-2 lg:order-2 mt-16 lg:mt-0">
+          <div class="relative">
+            <div class="relative z-10 rounded-2xl overflow-hidden shadow-xl">
+              <img src="https://picsum.photos/id/96/800/600" alt="工作场景" class="w-full h-auto">
+            </div>
+            <div class="absolute -top-6 -left-6 w-32 h-32 bg-accent/20 rounded-full blur-3xl z-0"></div>
+            <div class="absolute -bottom-8 -right-8 w-40 h-40 bg-primary/20 rounded-full blur-3xl z-0"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 技术优势 -->
+  <section class="section-padding bg-gradient-to-br from-primary/5 to-blue-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold mb-4">领先技术，保障卓越体验</h2>
+        <p class="text-lg text-muted">豆包基于先进的AI技术架构，为你提供高效、准确、安全的智能服务</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-md card-hover text-center">
+          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fa fa-bolt text-3xl text-primary"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">高效响应</h3>
+          <p class="text-muted">毫秒级响应速度，无论何时何地，快速响应用户需求，提供即时服务。</p>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-8 shadow-md card-hover text-center">
+          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fa fa-brain text-3xl text-primary"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">深度理解</h3>
+          <p class="text-muted">先进的自然语言理解模型，准确把握用户意图，支持复杂语义和上下文理解。</p>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-8 shadow-md card-hover text-center">
+          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fa fa-shield text-3xl text-primary"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">安全可靠</h3>
+          <p class="text-muted">多重数据加密和隐私保护机制，确保用户信息安全，符合最高安全标准。</p>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-8 shadow-md card-hover text-center">
+          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fa fa-refresh text-3xl text-primary"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">持续进化</h3>
+          <p class="text-muted">通过大规模数据训练和持续优化，模型能力不断提升，服务质量持续进化。</p>
+        </div>
+      </div>
+      
+      <!-- 技术架构图 -->
+      <div class="mt-20 bg-white rounded-2xl p-8 shadow-xl">
+        <h3 class="text-2xl font-bold text-center mb-12">技术架构</h3>
+        <div class="relative">
+          <div class="hidden md:block absolute inset-0 border-l-2 border-primary/20 left-1/2 transform -translate-x-1/2"></div>
+          
+          <div class="space-y-12 relative">
+            <!-- 架构层1 -->
+            <div class="flex flex-col md:flex-row items-center">
+              <div class="md:w-1/2 md:pr-12 text-right md:text-left mb-6 md:mb-0">
+                <h4 class="text-xl font-bold mb-2">应用层</h4>
+                <p class="text-muted">各类AI应用服务，直接面向用户需求</p>
+              </div>
+              <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white z-10 mb-6 md:mb-0">
+                <i class="fa fa-laptop"></i>
+              </div>
+              <div class="md:w-1/2 md:pl-12 hidden md:block">
+                <div class="h-full border-t-2 border-primary/20"></div>
+              </div>
+            </div>
+            
+            <!-- 架构层2 -->
+            <div class="flex flex-col md:flex-row items-center">
+              <div class="md:w-1/2 md:pr-12 text-right md:text-left mb-6 md:mb-0">
+                <h4 class="text-xl font-bold mb-2">能力层</h4>
+                <p class="text-muted">自然语言处理、计算机视觉、语音识别等核心AI能力</p>
+              </div>
+              <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white z-10 mb-6 md:mb-0">
+                <i class="fa fa-code"></i>
+              </div>
+              <div class="md:w-1/2 md:pl-12 hidden md:block">
+                <div class="h-full border-t-2 border-primary/20"></div>
+              </div>
+            </div>
+            
+            <!-- 架构层3 -->
+            <div class="flex flex-col md:flex-row items-center">
+              <div class="md:w-1/2 md:pr-12 text-right md:text-left mb-6 md:mb-0">
+                <h4 class="text-xl font-bold mb-2">模型层</h4>
+                <p class="text-muted">大规模预训练模型，持续优化升级</p>
+              </div>
+              <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white z-10 mb-6 md:mb-0">
+                <i class="fa fa-brain"></i>
+              </div>
+              <div class="md:w-1/2 md:pl-12 hidden md:block">
+                <div class="h-full border-t-2 border-primary/20"></div>
+              </div>
+            </div>
+            
+            <!-- 架构层4 -->
+            <div class="flex flex-col md:flex-row items-center">
+              <div class="md:w-1/2 md:pr-12 text-right md:text-left">
+                <h4 class="text-xl font-bold mb-2">基础设施层</h4>
+                <p class="text-muted">高性能计算集群，分布式存储系统</p>
+              </div>
+              <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white z-10">
+                <i class="fa fa-server"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 用户评价 -->
+  <section id="testimonials" class="section-padding bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold mb-4">用户怎么说</h2>
+        <p class="text-lg text-muted">来自不同领域用户的真实反馈，见证豆包如何改变他们的生活和工作</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- 评价1 -->
+        <div class="bg-gray-50 rounded-2xl p-8 shadow-md card-hover">
+          <div class="flex text-yellow-400 mb-4">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+          </div>
+          <p class="text-muted mb-6">"作为一名学生，豆包帮我解决了很多学习上的难题，尤其是在语言学习和论文写作方面，不仅提供思路，还能纠正错误，效率提升了很多。"</p>
+          <div class="flex items-center">
+            <img src="https://picsum.photos/id/1027/60/60" alt="用户头像" class="w-12 h-12 rounded-full mr-4">
+            <div>
+              <h4 class="font-semibold">李明</h4>
+              <p class="text-sm text-muted">大学生</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 评价2 -->
+        <div class="bg-gray-50 rounded-2xl p-8 shadow-md card-hover">
+          <div class="flex text-yellow-400 mb-4">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-half-o"></i>
+          </div>
+          <p class="text-muted mb-6">"作为市场运营人员，豆包帮我快速生成各种营销文案和活动方案，不仅节省了大量时间，而且创意十足，大大提升了工作效率。"</p>
+          <div class="flex items-center">
+            <img src="https://picsum.photos/id/1012/60/60" alt="用户头像" class="w-12 h-12 rounded-full mr-4">
+            <div>
+              <h4 class="font-semibold">王芳</h4>
+              <p class="text-sm text-muted">市场运营</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 评价3 -->
+        <div class="bg-gray-50 rounded-2xl p-8 shadow-md card-hover">
+          <div class="flex text-yellow-400 mb-4">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+          </div>
+          <p class="text-muted mb-6">"豆包的多语言翻译功能非常强大，我经常需要和国外客户沟通，它不仅翻译准确，还能理解行业术语，让沟通变得非常顺畅。"</p>
+          <div class="flex items-center">
+            <img src="https://picsum.photos/id/1025/60/60" alt="用户头像" class="w-12 h-12 rounded-full mr-4">
+            <div>
+              <h4 class="font-semibold">张伟</h4>
+              <p class="text-sm text-muted">外贸经理</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 媒体报道 -->
+      <div class="mt-20">
+        <h3 class="text-2xl font-bold text-center mb-12">媒体关注</h3>
+        <div class="flex flex-wrap justify-center items-center gap-12 opacity-70">
+          <img src="https://picsum.photos/id/1/120/40" alt="媒体logo" class="h-8 grayscale">
+          <img src="https://picsum.photos/id/2/120/40" alt="媒体logo" class="h-8 grayscale">
+          <img src="https://picsum.photos/id/3/120/40" alt="媒体logo" class="h-8 grayscale">
+          <img src="https://picsum.photos/id/4/120/40" alt="媒体logo" class="h-8 grayscale">
+          <img src="https://picsum.photos/id/5/120/40" alt="媒体logo" class="h-8 grayscale">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 下载区域 -->
+  <section id="download" class="section-padding bg-gradient-primary text-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold mb-6">立即下载豆包，开启智能生活</h2>
+        <p class="text-lg text-white/80 mb-10 max-w-2xl mx-auto">无论你使用什么设备，豆包都能为你提供无缝的智能服务体验，随时随地满足你的需求</p>
+        
+        <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-12">
+          <a href="#" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 rounded-xl p-4 flex items-center justify-center transition-colors">
+            <i class="fa fa-apple text-2xl mr-3"></i>
+            <div class="text-left">
+              <div class="text-xs">下载</div>
+              <div class="font-semibold">App Store</div>
+            </div>
+          </a>
+          <a href="#" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 rounded-xl p-4 flex items-center justify-center transition-colors">
+            <i class="fa fa-android text-2xl mr-3"></i>
+            <div class="text-left">
+              <div class="text-xs">下载</div>
+              <div class="font-semibold">Google Play</div>
+            </div>
+          </a>
+          <a href="#" class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 rounded-xl p-4 flex items-center justify-center transition-colors">
+            <i class="fa fa-windows text-2xl mr-3"></i>
+            <div class="text-left">
+              <div class="text-xs">下载</div>
+              <div class="font-semibold">Windows 客户端</div>
+            </div>
+          </a>
+        </div>
+        
+        <div class="bg-white/5 backdrop-blur-md rounded-2xl p-8 max-w-xl mx-auto">
+          <h3 class="text-xl font-bold mb-4">或者扫码下载</h3>
+          <div class="flex justify-center mb-6">
+            <img src="https://picsum.photos/id/20/200/200" alt="下载二维码" class="w-48 h-48 rounded-lg border-4 border-white/20">
+          </div>
+          <p class="text-white/80 text-sm">扫描二维码，下载豆包APP，享受智能服务</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 常见问题 -->
+  <section class="section-padding bg-gray-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-[clamp(1.8rem,4vw,2.8rem)] font-bold mb-4">常见问题</h2>
+        <p class="text-lg text-muted">你可能想了解的关于豆包的常见问题解答</p>
+      </div>
+      
+      <div class="max-w-3xl mx-auto">
+        <div class="space-y-4">
+          <!-- 问题1 -->
+          <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+            <button class="faq-question w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+              <span>豆包是什么？它能做什么？</span>
+              <i class="fa fa-chevron-down text-primary transition-transform"></i>
+            </button>
+            <div class="faq-answer px-6 py-0 max-h-0 overflow-hidden transition-all duration-300">
+              <div class="pb-4 text-muted">
+                豆包是一款基于先进人工智能技术的智能助手，它可以帮助你完成各种任务，包括信息查询、内容创作、多语言翻译、日程管理、学习辅助、工作提效等。无论你是需要解答知识疑问，还是生成文案、代码，或者管理日常日程，豆包都能为你提供帮助。
+              </div>
+            </div>
+          </div>
+          
+          <!-- 问题2 -->
+          <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+            <button class="faq-question w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+              <span>豆包的使用需要付费吗？</span>
+              <i class="fa fa-chevron-down text-primary transition-transform"></i>
+            </button>
+            <div class="faq-answer px-6 py-0 max-h-0 overflow-hidden transition-all duration-300">
+              <div class="pb-4 text-muted">
+                豆包提供免费版和付费版两种服务。免费版用户可以享受基础的AI服务，付费版用户则可以获得更多高级功能、更高的使用限额和更优质的服务体验。你可以根据自己的需求选择适合的版本。
+              </div>
+            </div>
+          </div>
+          
+          <!-- 问题3 -->
+          <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+            <button class="faq-question w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+              <span>豆包的数据安全如何保障？</span>
+              <i class="fa fa-chevron-down text-primary transition-transform"></i>
+            </button>
+            <div class="faq-answer px-6 py-0 max-h-0 overflow-hidden transition-all duration-300">
+              <div class="pb-4 text-muted">
+                豆包非常重视用户的数据安全和隐私保护。我们采用了多重加密技术，确保用户数据在传输和存储过程中的安全。同时，我们严格遵守相关法律法规，未经用户允许，不会向任何第三方披露用户信息。你可以在隐私政策中了解更多详细信息。
+              </div>
+            </div>
+          </div>
+          
+          <!-- 问题4 -->
+          <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+            <button class="faq-question w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+              <span>如何提升豆包对我的理解能力？</span>
+              <i class="fa fa-chevron-down text-primary transition-transform"></i>
+            </button>
+            <div class="faq-answer px-6 py-0 max-h-0 overflow-hidden transition-all duration-300">
+              <div class="pb-4 text-muted">
+                豆包会通过你的使用习惯不断学习和优化对你的理解能力。你可以通过以下方式帮助豆包更好地理解你：
+                <ul class="list-disc pl-5 mt-2 space-y-1">
+                  <li>提供清晰明确的指令和问题</li>
+                  <li>在对话中提供更多上下文信息</li>
+                  <li>对豆包的回答给出反馈（如“很有帮助”或“不太准确”）</li>
+                  <li>定期使用豆包，让它熟悉你的语言习惯和需求模式</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 问题5 -->
+          <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+            <button class="faq-question w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none">
+              <span>豆包支持哪些设备和平台？</span>
+              <i class="fa fa-chevron-down text-primary transition-transform"></i>
+            </button>
+            <div class="faq-answer px-6 py-0 max-h-0 overflow-hidden transition-all duration-300">
+              <div class="pb-4 text-muted">
+                豆包支持多平台使用，包括：
+                <ul class="list-disc pl-5 mt-2 space-y-1">
+                  <li>iOS设备（通过App Store下载）</li>
+                  <li>Android设备（通过Google Play或官方网站下载）</li>
+                  <li>Windows和macOS桌面设备（通过官方网站下载客户端）</li>
+                  <li>网页端（通过浏览器访问官方网站）</li>
+                  <li>智能音箱等物联网设备（即将支持）</li>
+                </ul>
+                所有平台的数据都会同步，确保你在不同设备上都能获得一致的使用体验。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-dark text-white pt-16 pb-8">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+        <div class="lg:col-span-2">
+          <div class="flex items-center space-x-2 mb-6">
+            <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <i class="fa fa-brain text-white text-2xl"></i>
+            </div>
+            <span class="text-xl font-bold text-white">豆包</span>
+          </div>
+          <p class="text-gray-400 mb-6 max-w-md">
+            豆包是你的智能AI助手，基于先进的人工智能技术，为你提供全方位的智能服务，让生活和工作更简单高效。
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 bg-white/10 hover:bg-primary rounded-full flex items-center justify-center transition-colors">
+              <i class="fa fa-weibo"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 hover:bg-primary rounded-full flex items-center justify-center transition-colors">
+              <i class="fa fa-wechat"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 hover:bg-primary rounded-full flex items-center justify-center transition-colors">
+              <i class="fa fa-twitter"></i>
+            </a>
+            <a href="#" class="w-10 h-10 bg-white/10 hover:bg-primary rounded-full flex items-center justify-center transition-colors">
+              <i class="fa fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-6">产品</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">功能特点</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">使用场景</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">价格方案</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">更新日志</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">API接口</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-6">资源</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">帮助中心</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">使用教程</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">开发者文档</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">社区论坛</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">案例研究</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-semibold mb-6">公司</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">关于我们</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">招贤纳士</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">新闻动态</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">合作伙伴</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">联系我们</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-white/10 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <p class="text-gray-400 text-sm mb-4 md:mb-0">
+            &copy; 2025 豆包 AI. 保留所有权利.
+          </p>
+          <div class="flex space-x-6">
+            <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">隐私政策</a>
+            <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">服务条款</a>
+            <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Cookie 政策</a>
+            <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">法律声明</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 返回顶部按钮 -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 z-50">
+    <i class="fa fa-arrow-up"></i>
+  </button>
+
+  <!-- JavaScript -->
+  <script>
+    // 导航栏滚动效果
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('shadow-md');
+        navbar.classList.remove('shadow-sm');
+      } else {
+        navbar.classList.remove('shadow-md');
+        navbar.classList.add('shadow-sm');
+      }
+    });
+    
+    // 移动端菜单切换
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      if (mobileMenu.classList.contains('hidden')) {
+        menuToggle.innerHTML = '<i class="fa fa-bars text-2xl"></i>';
+      } else {
+        menuToggle.innerHTML = '<i class="fa fa-times text-2xl"></i>';
+      }
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // 关闭移动端菜单
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            menuToggle.innerHTML = '<i class="fa fa-bars text-2xl"></i>';
+          }
+        }
+      });
+    });
+    
+    // 返回顶部按钮
+    const backToTopButton = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTopButton.classList.remove('opacity-0', 'invisible');
+        backToTopButton.classList.add('opacity-100', 'visible');
+      } else {
+        backToTopButton.classList.add('opacity-0', 'invisible');
+        backToTopButton.classList.remove('opacity-100', 'visible');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // FAQ 手风琴效果
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', () => {
+        const answer = question.nextElementSibling;
+        const icon = question.querySelector('i');
+        
+        // 切换当前问题的展开状态
+        if (answer.style.maxHeight) {
+          answer.style.maxHeight = null;
+          icon.style.transform = 'rotate(0deg)';
+        } else {
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+          icon.style.transform = 'rotate(180deg)';
+        }
+        
+        // 关闭其他问题（可选，只允许一个问题展开）
+        faqQuestions.forEach(otherQuestion => {
+          if (otherQuestion !== question) {
+            const otherAnswer = otherQuestion.nextElementSibling;
+            const otherIcon = otherQuestion.querySelector('i');
+            otherAnswer.style.maxHeight = null;
+            otherIcon.style.transform = 'rotate(0deg)';
+          }
+        });
+      });
+    });
+    
+    // 数字计数器动画
+    function animateCounter(elementId, target, duration = 2000) {
+      const element = document.getElementById(elementId);
+      if (!element) return;
+      
+      const start = 0;
+      const increment = target / (duration / 16);
+      let current = start;
+      
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          element.textContent = target.toLocaleString();
+          clearInterval(timer);
+        } else {
+          element.textContent = Math.floor(current).toLocaleString();
+        }
+      }, 16);
+    }
+    
+    // 监听元素是否进入视口，触发计数器动画
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter('counter-users', 1200000);
+          animateCounter('counter-requests', 3500000);
+          animateCounter('counter-languages', 200);
+          animateCounter('counter-categories', 25);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    const counterSection = document.getElementById('counter-users').parentElement.parentElement.parentElement;
+    if (counterSection) {
+      observer.observe(counterSection);
+    }
+  </script>
+</body>
+</html>

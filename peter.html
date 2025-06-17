@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donghao Zhang's Social Hub</title>
+    <!-- 引入Font Awesome图标（用于社交媒体图标） -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 基础重置 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #2d3748; background-color: #f7fafc; }
+        
+        /* 容器（居中显示） */
+        .container { max-width: 850px; margin: 40px auto; padding: 0 20px; }
+        
+        /* 页眉（欢迎区域） */
+        .header { text-align: center; margin-bottom: 50px; }
+        .header h1 { font-size: 2.8em; color: #1a202c; margin-bottom: 15px; }
+        .header p { font-size: 1.2em; color: #4a5568; }
+        
+        /* 个人简介（带头像） */
+        .intro { text-align: center; margin-bottom: 60px; }
+        .intro .avatar { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 4px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 25px; }
+        .intro p { font-size: 1.1em; color: #2d3748; max-width: 700px; margin: 0 auto; }
+        
+        /* 社交媒体卡片容器 */
+        .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        
+        /* 社交媒体卡片样式 */
+        .social-card { background-color: #fff; padding: 40px 25px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .social-card:hover { transform: translateY(-8px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        
+        /* 卡片图标 */
+        .social-card i { font-size: 3.5em; margin-bottom: 25px; }
+        .social-card .fa-github { color: #24292e; } /* GitHub 图标色 */
+        .social-card .fa-twitter { color: #1da1f2; } /* Twitter 图标色 */
+        .social-card .fa-linkedin { color: #0077b5; } /* LinkedIn 图标色 */
+        
+        /* 卡片标题 */
+        .social-card h2 { font-size: 1.6em; color: #1a202c; margin-bottom: 15px; }
+        
+        /* 卡片描述 */
+        .social-card p { font-size: 1em; color: #4a5568; margin-bottom: 30px; line-height: 1.7; }
+        
+        /* 按钮样式 */
+        .btn { display: inline-block; padding: 12px 30px; background-color: #2d3748; color: #fff; text-decoration: none; border-radius: 8px; font-size: 1em; transition: background-color 0.3s ease; }
+        .btn:hover { background-color: #1a202c; }
+        
+        /* 页脚 */
+        .footer { text-align: center; margin-top: 80px; padding: 30px 0; border-top: 1px solid #e2e8f0; }
+        .footer p { font-size: 0.9em; color: #4a5568; }
+        .footer .motto { font-style: italic; color: #2d3748; font-weight: 500; }
+        
+        /* 响应式调整（手机端） */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.2em; }
+            .intro .avatar { width: 140px; height: 140px; }
+            .social-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 页眉：欢迎语 -->
+        <header class="header">
+            <h1>Hi, I'm Donghao! 👋</h1>
+            <p>Welcome to my digital hub—let's connect and share ideas!</p>
+        </header>
+
+        <!-- 个人简介：带头像 -->
+        <section class="intro">
+            <img src="img/your-avatar.jpg" alt="Donghao Zhang's Avatar" class="avatar"> <!-- 替换为你的头像路径 -->
+            <p>I'm a passionate developer/designer (调整为你的职业) with a love for open-source, technology, and building things that matter. Whether you want to explore my code, follow my thoughts, or connect professionally, I'm glad you're here!</p> <!-- 替换为你的简介 -->
+        </section>
+
+        <!-- 社交媒体卡片：GitHub/Twitter/LinkedIn -->
+        <section class="social-grid">
+            <!-- GitHub 卡片 -->
+            <div class="social-card">
+                <i class="fab fa-github"></i>
+                <h2>GitHub</h2>
+                <p>Explore my coding projects, open-source contributions, and technical experiments. I enjoy solving problems with code and learning new technologies.</p>
+                <a href="https://github.com/your-username" target="_blank" class="btn">Visit GitHub</a> <!-- 替换为你的GitHub链接 -->
+            </div>
+
+            <!-- Twitter 卡片 -->
+            <div class="social-card">
+                <i class="fab fa-twitter"></i>
+                <h2>Twitter</h2>
+                <p>Follow me (@peter6759) for quick thoughts on tech, industry trends, and occasional life updates. Let's chat and grow together!</p>
+                <a href="https://twitter.com/peter6759" target="_blank" class="btn">Follow on Twitter</a>
+            </div>
+
+            <!-- LinkedIn 卡片 -->
+            <div class="social-card">
+                <i class="fab fa-linkedin"></i>
+                <h2>LinkedIn</h2>
+                <p>Connect with me to see my professional journey, work experience, and recommendations. I'm open to new opportunities and collaborations!</p>
+                <a href="https://www.linkedin.com/in/donghao-zhang-2ab96399" target="_blank" class="btn">View LinkedIn</a>
+            </div>
+        </section>
+
+        <!-- 页脚：版权+座右铭 -->
+        <footer class="footer">
+            <p>© 2024 Donghao Zhang. All rights reserved. | <span class="motto">Stay curious, keep building!</span></p> <!-- 替换为你的座右铭 -->
+        </footer>
+    </div>
+</body>
+</html>
